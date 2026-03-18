@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Pop街舞AI助手试炼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-card glass">
+        <p class="eyebrow">K-POP STREET DANCE AI</p>
+        <h1>街舞 AI 助手</h1>
+        <p class="muted">从舞台解析到陪练纠错，把内容上传、AI 分析、结果展示和学习引导串成一次完整体验。</p>
+      </div>
+
+      <section class="glass side-section">
+        <div class="section-head">
+          <h2>个性化设置</h2>
+        </div>
+        <p class="side-note">先告诉助手你喜欢的团体、成员和主题颜色，推荐内容和分享卡会更贴近你的偏好。</p>
+        <label class="field">
+          <span>偏爱团体</span>
+          <select id="favoriteGroup"></select>
+        </label>
+        <label class="field">
+          <span>偏爱成员</span>
+          <select id="favoriteMember"></select>
+        </label>
+        <div class="field">
+          <span>选择主题颜色</span>
+          <p class="field-hint">点击下方颜色卡，切换页面主视觉风格。</p>
+        </div>
+        <div class="theme-picker">
+          <button class="theme-swatch active" data-theme="lisa" aria-label="Lisa主题"><span>Lisa 霓光绿</span></button>
+          <button class="theme-swatch" data-theme="rose" aria-label="Rose主题"><span>Rose 玫粉</span></button>
+          <button class="theme-swatch" data-theme="jennie" aria-label="Jennie主题"><span>Jennie 金杏</span></button>
+          <button class="theme-swatch" data-theme="jisoo" aria-label="智秀主题"><span>智秀 冰紫</span></button>
+        </div>
+      </section>
+
+      <section class="glass side-section">
+        <div class="section-head">
+          <h2>历史记录</h2>
+          <button id="clearHistory" class="text-button">清空</button>
+        </div>
+        <div id="historyList" class="stack-list empty-state">还没有分析记录，先跑一次 AI 分析吧。</div>
+      </section>
+
+      <section class="glass side-section">
+        <div class="section-head">
+          <h2>收藏夹</h2>
+          <button id="clearFavorites" class="text-button">清空</button>
+        </div>
+        <div class="collection-tabs">
+          <button class="mini-tab active" data-collection="all">全部</button>
+          <button class="mini-tab" data-collection="audio">音频</button>
+          <button class="mini-tab" data-collection="dance">舞蹈</button>
+          <button class="mini-tab" data-collection="teaching">教学</button>
+        </div>
+        <div id="favoriteList" class="stack-list empty-state">收藏后会显示在这里，方便回看分析结果和教学链接。</div>
+      </section>
+    </aside>
+
+    <main class="main-panel">
+      <section class="hero glass">
+        <div class="hero-copy">
+          <p class="eyebrow">WEB DEMO SIMULATION</p>
+          <h2 class="headline-glow">像舞台导演台一样，拆解每一段 K-Pop 舞蹈与音色</h2>
+          <p class="muted">上传视频或音频，或者直接选择预设热门内容，体验舞台走位解析、音色识别、陪练纠错和舞步学习推荐。整个页面围绕“上台前准备、AI 分析、结果回看、继续练习”展开，更像一个真实可演示的产品控制台。</p>
+          <div class="hero-tags">
+            <span class="hero-tag">Stage Mapping</span>
+            <span class="hero-tag">Tone Tracking</span>
+            <span class="hero-tag">Practice Coaching</span>
+          </div>
+          <div class="hero-poster-strip">
+            <div class="poster-card tilt-a">
+              <img src="assets/stage-poster.svg" alt="舞台走位海报">
+            </div>
+            <div class="poster-card tilt-b">
+              <img src="assets/audio-visual.svg" alt="音频视觉卡">
+            </div>
+            <div class="poster-card tilt-c">
+              <img src="assets/practice-monitor.svg" alt="陪练监视卡">
+            </div>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="stage-visual">
+            <div class="stage-ring ring-a"></div>
+            <div class="stage-ring ring-b"></div>
+            <div class="stage-ring ring-c"></div>
+            <div class="stage-center">
+              <span class="stage-mini-label">LIVE AI</span>
+              <strong>Performance Console</strong>
+            </div>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-card"><span>支持模式</span><strong>4 大核心模块</strong></div>
+            <div class="metric-card"><span>推荐内容</span><strong>10 组预设样例</strong></div>
+            <div class="metric-card"><span>闭环能力</span><strong>分析 + 学习 + 收藏</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass control-panel">
+        <div class="section-head">
+          <h2>1. 选择分析模式</h2>
+          <span id="activeModeLabel" class="pill">舞蹈陪练纠错</span>
+        </div>
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="practiceAssistant">DancePracticeAssistant</button>
+          <button class="mode-tab" data-mode="stepLearning">DanceStepLearning</button>
+          <button class="mode-tab" data-mode="danceAction">DanceActionAnalysis</button>
+          <button class="mode-tab" data-mode="audioTone">AudioToneRecognition</button>
+        </div>
+
+        <div class="control-grid">
+          <div class="upload-card">
+            <h3>2. 内容上传与预设选择</h3>
+            <div class="segmented">
+              <button class="segment active" data-source="preset">预设内容</button>
+              <button class="segment" data-source="upload">本地上传</button>
+            </div>
+            <div id="presetPanel" class="source-panel active"><div id="presetList" class="preset-grid"></div></div>
+            <div id="uploadPanel" class="source-panel">
+              <label class="upload-drop">
+                <input id="fileInput" type="file" hidden>
+                <span class="upload-title">拖入文件或点击上传</span>
+                <span id="uploadHint" class="muted">当前模式支持：视频 / 音频</span>
+              </label>
+              <div id="uploadPreview" class="upload-preview">未选择文件，将继续使用预设模拟数据。</div>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <h3>推荐内容</h3>
+            <div id="smartRecommendation" class="recommend-box"></div>
+            <button id="runAnalysis" class="primary-button">开始 AI 分析</button>
+            <button id="resetSession" class="secondary-button">重新选择内容</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass analysis-panel">
+        <div class="section-head">
+          <h2>3. AI 模拟分析过程</h2>
+          <span id="analysisStatus" class="status-badge idle">等待开始</span>
+        </div>
+        <div class="progress-shell">
+          <div class="progress-meta">
+            <strong id="progressTitle">等待用户选择内容</strong>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+        <div id="analysisStages" class="stage-list">
+          <div class="stage active">文件解析初始化</div>
+          <div class="stage">AI 特征提取</div>
+          <div class="stage">多模态结果生成</div>
+          <div class="stage">学习引导与归档</div>
+        </div>
+      </section>
+
+      <section class="glass result-panel">
+        <div class="section-head">
+          <h2>4. 结果可视化展示</h2>
+          <div class="section-actions">
+            <button id="favoriteResult" class="secondary-button">收藏当前结果</button>
+            <button id="shareResult" class="secondary-button">生成分享卡片</button>
+          </div>
+        </div>
+        <div id="resultContent" class="result-content">
+          <div class="empty-result">
+            <h3>分析结果会显示在这里</h3>
+            <p class="muted">点击“开始 AI 分析”后，将根据模式生成走位图、饼图、对比建议或教学推荐。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
